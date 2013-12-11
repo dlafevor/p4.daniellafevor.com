@@ -1,0 +1,24 @@
+@charset "utf-8";
+/* CSS Document */
+
+body { font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; color: #ffffff; margin: 0 0 0 0; padding: 0 0 0 0; background-color: #01aaf2;}
+body.caution { cursor: help; }
+div.appWrapper { width: 275px; border-left: #01aaf2 solid 1px; border-right: #01aaf2 solid 1px; background-color: #000000; margin: 0 auto 0 auto; }
+div.headerBar { background-color: #393939; }
+div.headerBar h1 { margin: 0 auto 0 auto; text-align: center; }
+div.bodyWrapper { margin: 0 25px 0 25px; }
+div.footerBar { background-color: #393939; margin-top: 25px; padding-bottom: 15px; }
+div.footerBar img { margin: 5px; vertical-align: middle; }
+#minesweepGame form { margin: 5px; }
+#newGameForm { margin: 0 auto 0 auto; width: 110px; }
+div.gameNewLayer { display: none; padding: 5px; margin: 0 auto 0 auto; width: 110px; }
+div.gameNewLayer input {  width: 110px; border: 2px solid #ffffff; background-color: #000000; color: #ffffff; cursor: pointer; }
+#gameBoardLayer h2 { margin: 5px auto 0 auto; font-weight: normal; font-size: 2.2em; width: 145px; text-align: center; }
+table.mineSweeper { margin-top: 5px; }
+table.mineSweeper td { margin: 3px; background-color: #01aaf2; border: 1px solid #2100e8; cursor: pointer; height: 20px; overflow: hidden; text-align: center; width: 20px; margin: 10px; padding: 0 0 0 0;  }
+table.mineSweeper td.active { background-color: #000000; border: 1px solid #4d4e53;  }
+table.mineSweeper td.active:hover { border: 1px solid #ffffff; background-color: #ffffff; opacity: .25;  }
+table.mineSweeper td.mine { font-weight: bold; }
+table.mineSweeper td.mined { color: #CC0000; font-weight: bold; border: 3px solid #ff0000; background-color: #000000; background-image: url(../images/explosion.png); background-repeat:no-repeat; background-position:center; }
+table.mineSweeper td.caution { color: #ffae00; font-weight: bold; background-color: #ffd200; background-position: center; background-repeat: no-repeat; border: 1px solid #ff2200; }
+ol { font-size: .85em; width: 200px; list-style-type: decimal; }
