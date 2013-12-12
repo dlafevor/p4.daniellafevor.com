@@ -109,6 +109,8 @@ $.fn.near = function(){
 	// Load the won page if it is the end of the game and no mines have been hit
 	MineSweeper.prototype.checkEndGame = function(){
 		 if (!this.noMineCells.filter( '.active' ).size()){
+			var secondsEnd = new Date().getTime();
+			$('#gameEnd').val(secondsEnd);
 			$('#gameBoardLayer').css('display','none').load('win.html'); 
 		}
 	};
@@ -234,6 +236,8 @@ $.fn.near = function(){
 	// function for loading various difficulty levels and toggling visibilty of the logo, difficulty select, and "new game" button
 	function loadGameBoard() {
 		var selectDifficulty = $('#gameDifficulty').val();
+		var seconds = new Date().getTime();
+		$('#gameStart').val(seconds);
 		$(function() {
 			if (selectDifficulty == 2) {
 				var mineSweerper = new MineSweeper( $('table.mineSweeper'), 20, 20, 25 );
