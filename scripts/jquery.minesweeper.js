@@ -111,6 +111,8 @@ $.fn.near = function(){
 		 if (!this.noMineCells.filter( '.active' ).size()){
 			var secondsEnd = new Date().getTime();
 			$('#gameEnd').val(secondsEnd);
+			var count = -1
+			$('#timer').replaceWith('<span id="timer"></span>');
 			$('#gameBoardLayer').css('display','none').load('win.html'); 
 		}
 	};
@@ -238,6 +240,15 @@ $.fn.near = function(){
 		var selectDifficulty = $('#gameDifficulty').val();
 		var seconds = new Date().getTime();
 		$('#gameStart').val(seconds);
+		var count=0;
+		var counter=setInterval(timer, 100);
+		
+		//function timer(){
+			//if (count !== -1) {
+				//count=count+1;
+				//$('#timer').replaceWith('<span id="timer">' + count/10 + '</span>');
+			//};
+		//};
 		$(function() {
 			if (selectDifficulty == 2) {
 				var mineSweerper = new MineSweeper( $('table.mineSweeper'), 20, 20, 25 );
