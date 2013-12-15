@@ -31,7 +31,7 @@
 <script>
 	$('#gameDifficulty').change(loadGameBoard);
 	$('#newGameBtn').click(function(){
-		$('#gameLayer').load('gameBoard.html');
+		$('#gameLayer').load('gameBoard.php');
 		$('.appWrapper').css('width','275px');
 		$('#gameBoardLayer').fadeIn('slow');
 	});

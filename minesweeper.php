@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<script>
-			$('#gameLayer').load('gameBoard.html');
+			$('#gameLayer').load('gameBoard.php');
 		</script>
 	</body>
 </html>

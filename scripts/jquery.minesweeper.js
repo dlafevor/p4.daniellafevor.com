@@ -113,7 +113,7 @@ $.fn.near = function(){
 			$('#gameEnd').val(secondsEnd);
 			var count = -1
 			$('#timer').replaceWith('<span id="timer"></span>');
-			$('#gameBoardLayer').css('display','none').load('win.html'); 
+			$('#gameBoardLayer').css('display','none').load('win.php'); 
 		}
 	};
  
@@ -192,7 +192,7 @@ $.fn.near = function(){
 			// Check to see if the target was a mine cell.
 			if (target.is( ".mine" )){
  				// if a mine, then load the loose screen
- 				$('#gameBoardLayer').css('display','none').load('loose.html');
+ 				$('#gameBoardLayer').css('display','none').load('loose.php');
 			} else {
 				this.showCell( target ); // show the cell
  			}
@@ -240,15 +240,22 @@ $.fn.near = function(){
 		var selectDifficulty = $('#gameDifficulty').val();
 		var seconds = new Date().getTime();
 		$('#gameStart').val(seconds);
-		var count=0;
-		var counter=setInterval(timer, 100);
+		var count = 0;
+		var counter = setInterval(timer, 1000);
+		var countMin
 		
-		//function timer(){
-			//if (count !== -1) {
-				//count=count+1;
-				//$('#timer').replaceWith('<span id="timer">' + count/10 + '</span>');
-			//};
-		//};
+		function timer(){
+			if (count !== -1) {
+				count=count + 1;
+				countMin = parseInt(count/60);
+				if (countMin > 1) {
+					countMin = countMin + ':';
+				};
+					
+				$('#timer').replaceWith('<span id="timer">' + countMin + (count%60) + '</span>');
+			};
+		};
+		
 		$(function() {
 			if (selectDifficulty == 2) {
 				var mineSweerper = new MineSweeper( $('table.mineSweeper'), 20, 20, 25 );
