@@ -1,19 +1,32 @@
-<div class="repeatedBodyContent">
-	<h2>My Pack's Barks!</h2>
-	<form id="newPostForm" method='post' action='/posts/p_add'>
-    <input type="text" name='content' id='content' placeholder="Start barking!" size="65"> <input type='submit' id="newPost" value='New post'>
-	</form> 
-	<?php foreach($posts as $post): ?>
-		<div class="followedPosts">
-			<article>
-				<h3><strong><?=$post['first_name']?> <?=$post['last_name']?></strong> <?=$post['email']?></h3>
-				<p class="postContent"><?=$post['content']?></p>
-				<p class="dateTime">
-					<time datetime="<?=Time::display($post['created'],'Y-m-d G:i')?>">
-							<?=Time::display($post['created'])?>
-					</time>
-				</p>
-			</article>
-		</div>
-	<?php endforeach; ?>
+<div id="minesweepGame">
+	<div class="gameFormLayer">
+		<form id="gameForm">
+			<label for="gameDifficulty">Difficulty</label>: 
+			<select name="gameDifficulty" id="gameDifficulty">
+				<option value="">Select Difficulty</option>
+				<option value="1">Easy</option>
+				<option value="2">Medium</option>
+				<option value="3">Hard</option>
+			</select>
+		</form>
+	</div>
+	<div class="gameNewLayer">
+		<form id="newGameForm">
+			<input type="button" name="newGameBtn" id="newGameBtn" value="New Game?">
+		</form>
+	</div>
+	<img src="images/Minesweeper_Icon.png" width="200" height="200" alt="Minesweeper - a JavaScript App" class="minesweeperIcon">
+	<div id="gameBoardLayer">	
+		<table class="mineSweeper">
+		<!--- Will be populated dynamically. --->
+		</table>
+	</div>
 </div>
+<script>
+	$('#gameDifficulty').change(loadGameBoard);
+	$('#newGameBtn').click(function(){
+		$('#gameLayer').load('gameBoard.html');
+		$('.appWrapper').css('width','275px');
+		$('#gameBoardLayer').fadeIn('slow');
+	});
+</script>

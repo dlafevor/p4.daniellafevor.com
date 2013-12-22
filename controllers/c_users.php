@@ -13,7 +13,7 @@ class users_controller extends base_controller {
    	public function signup($error = NULL) {
 			# Setup view
 				$this->template->content = View::instance('v_users_signup');
-				$this->template->title   = "Join the Backyard Barker! Sign Up Now!";
+				$this->template->title   = "Join MineSweeper! Sign Up Now!";
 
         //Pass data to the view
         $this->template->content->error = $error;
@@ -50,7 +50,7 @@ class users_controller extends base_controller {
 				$_POST['token'] = sha1(TOKEN_SALT.$_POST['email'].Utils::generate_random_string());
 				
 				# Insert this user into the database
-				$user_id = DB::instance(DB_NAME)->insert('users', $_POST);
+				$userID = DB::instance(DB_NAME)->insert('users', $_POST);
 				
 				# You should eventually make a proper View for this
 				Router::redirect("/users/login"); 
@@ -63,7 +63,7 @@ class users_controller extends base_controller {
 		
 				# Set up the view
 				$this->template->content = View::instance("v_users_login");
-				$this->template->title   = "Login to the Backyard Barker";
+				$this->template->title   = "Login to the MineSweeper!";
 		
 				# Pass data to the view
 				$this->template->content->error = $error;
@@ -146,14 +146,14 @@ class users_controller extends base_controller {
 
 				# Build the query
 			$q = 'SELECT 
-            users.first_name,
-            users.last_name, 
+            users.firstName,
+            users.lastName, 
 						users.email,
 						users.userState, 
 						users.userCity, 
 						users.userBio
         FROM users
-        WHERE users.user_id = '.$this->user->user_id;
+        WHERE users.userID = '.$this->user->userID;
 	
 			# Run the query
 			$myProfile = DB::instance(DB_NAME)->select_rows($q);
@@ -167,15 +167,15 @@ class users_controller extends base_controller {
 		}
 		public function p_profile() {
 			 # Associate this post with this user
-			$_POST['user_id']  = $this->user->user_id;
+			$_POST['userID']  = $this->user->userID;
 
 			# Insert
 			# Note we didn't have to sanitize any of the $_POST data because we're using the insert method which does it for us
-			$whereClause = 'WHERE user_id = ' .$_POST['user_id'];
+			$whereClause = 'WHERE userID = ' .$_POST['userID'];
 			DB::instance(DB_NAME)->update('users', $_POST, $whereClause);
 
 			# Quick and dirty feedback
-			Router::redirect("/posts/myposts/");
+			Router::redirect("/posts");
 		}
 
 } # end of the class

@@ -109,11 +109,7 @@ $.fn.near = function(){
 	// Load the won page if it is the end of the game and no mines have been hit
 	MineSweeper.prototype.checkEndGame = function(){
 		 if (!this.noMineCells.filter( '.active' ).size()){
-			var secondsEnd = new Date().getTime();
-			$('#gameEnd').val(secondsEnd);
-			var count = -1
-			$('#timer').replaceWith('<span id="timer"></span>');
-			$('#gameBoardLayer').css('display','none').load('win.php'); 
+			$('#gameBoardLayer').css('display','none').load('win.html'); 
 		}
 	};
  
@@ -192,7 +188,7 @@ $.fn.near = function(){
 			// Check to see if the target was a mine cell.
 			if (target.is( ".mine" )){
  				// if a mine, then load the loose screen
- 				$('#gameBoardLayer').css('display','none').load('loose.php');
+ 				$('#gameBoardLayer').css('display','none').load('loose.html');
 			} else {
 				this.showCell( target ); // show the cell
  			}
@@ -238,24 +234,6 @@ $.fn.near = function(){
 	// function for loading various difficulty levels and toggling visibilty of the logo, difficulty select, and "new game" button
 	function loadGameBoard() {
 		var selectDifficulty = $('#gameDifficulty').val();
-		var seconds = new Date().getTime();
-		$('#gameStart').val(seconds);
-		var count = 0;
-		var counter = setInterval(timer, 1000);
-		var countMin
-		
-		function timer(){
-			if (count !== -1) {
-				count=count + 1;
-				countMin = parseInt(count/60);
-				if (countMin > 1) {
-					countMin = countMin + ':';
-				};
-					
-				$('#timer').replaceWith('<span id="timer">' + countMin + (count%60) + '</span>');
-			};
-		};
-		
 		$(function() {
 			if (selectDifficulty == 2) {
 				var mineSweerper = new MineSweeper( $('table.mineSweeper'), 20, 20, 25 );

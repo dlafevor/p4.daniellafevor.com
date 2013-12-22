@@ -24,7 +24,7 @@ class posts_controller extends base_controller {
     public function p_add() {
 
 			# Associate this post with this user
-			$_POST['user_id']  = $this->user->user_id;
+			$_POST['userID']  = $this->user->userID;
 
 			# Unix timestamp of when this post was created / modified
 			$_POST['created']  = Time::now();
@@ -38,9 +38,9 @@ class posts_controller extends base_controller {
 			Router::redirect("/posts/myposts");
     }
 		
-		public function delete($post_id) {
+		public function delete($userID) {
 			# Delete this connection
-			$where_condition = 'WHERE post_id = '.$post_id;
+			$where_condition = 'WHERE userID = '.$userID;
 			DB::instance(DB_NAME)->delete('posts', $where_condition);
 			# Send them back
 			Router::redirect("/posts/myposts");
@@ -49,23 +49,21 @@ class posts_controller extends base_controller {
 		public function index() {
 			# Set up the View
 			$this->template->content = View::instance('v_posts_index');
-			$this->template->title   = "Barking";
+			$this->template->title   = "MineSweeper!";
 	
 			# Build the query
 			$q = 'SELECT 
             posts.content,
             posts.created,
-            posts.user_id AS post_user_id,
-            users_followed.user_id AS follower_id,
-            users.first_name,
-            users.last_name, 
+            posts.userID AS post_userID,
+            users_followed.userID AS follower_id,
+            users.firstName,
+            users.lastName, 
 						users.email
         FROM posts
-        INNER JOIN users_followed 
-            ON posts.user_id = users_followed.user_id_followed
-        INNER JOIN users 
-            ON posts.user_id = users.user_id
-        WHERE users_followed.user_id = '.$this->user->user_id;
+					INNER JOIN users_followed ON posts.userID = users_followed.userID_followed
+					INNER JOIN users ON posts.userID = users.userID
+        WHERE users_followed.userID = '.$this->user->userID;
 	
 			# Run the query
 			$posts = DB::instance(DB_NAME)->select_rows($q);
@@ -85,15 +83,15 @@ class posts_controller extends base_controller {
 	
 			# Build the query
 			$q = 'SELECT 
-            posts.post_id, 
+            posts.userID, 
 						posts.content,
             posts.created,
-						users.first_name,
-            users.last_name, 
+						users.firstName,
+            users.lastName, 
 						users.email
         FROM posts
-				INNER JOIN users ON posts.user_id = users.user_id
-        WHERE posts.user_id = '.$this->user->user_id;
+				INNER JOIN users ON posts.userID = users.userID
+        WHERE posts.userID = '.$this->user->userID;
 	
 			# Run the query
 			$userposts = DB::instance(DB_NAME)->select_rows($q);
@@ -114,11 +112,11 @@ class posts_controller extends base_controller {
 			$q = 'SELECT 
             posts.content,
             posts.created,
-						users.first_name,
-            users.last_name, 
+						users.firstName,
+            users.lastName, 
 						users.email
         FROM posts
-				INNER JOIN users ON posts.user_id = users.user_id';
+				INNER JOIN users ON posts.userID = users.userID';
 	
 			# Run the query
 			$userallposts = DB::instance(DB_NAME)->select_rows($q);
@@ -149,13 +147,13 @@ class posts_controller extends base_controller {
 			# I.e. who are they following
 			$q = "SELECT * 
 					FROM users_followed
-					WHERE user_id = ".$this->user->user_id;
+					WHERE userID = ".$this->user->userID;
 	
 			# Execute this query with the select_array method
 			# select_array will return our results in an array and use the "users_id_followed" field as the index.
 			# This will come in handy when we get to the view
 			# Store our results (an array) in the variable $connections
-			$connections = DB::instance(DB_NAME)->select_array($q, 'user_id_followed');
+			$connections = DB::instance(DB_NAME)->select_array($q, 'userID_followed');
 	
 			# Pass data (users and connections) to the view
 			$this->template->content->users       = $users;
@@ -164,12 +162,12 @@ class posts_controller extends base_controller {
 			# Render the view
 			echo $this->template;
 	}
-	public function follow($user_id_followed) {
+	public function follow($userID_followed) {
     # Prepare the data array to be inserted
     $data = Array(
         "created" => Time::now(),
-        "user_id" => $this->user->user_id,
-        "user_id_followed" => $user_id_followed
+        "userID" => $this->user->userID,
+        "userID_followed" => $userID_followed
         );
     # Do the insert
     DB::instance(DB_NAME)->insert('users_followed', $data);
@@ -177,9 +175,9 @@ class posts_controller extends base_controller {
     Router::redirect("/posts/users");
 
 	}
-	public function unfollow($user_id_followed) {
+	public function unfollow($userID_followed) {
 			# Delete this connection
-			$where_condition = 'WHERE user_id = '.$this->user->user_id.' AND user_id_followed = '.$user_id_followed;
+			$where_condition = 'WHERE userID = '.$this->user->userID.' AND userID_followed = '.$userID_followed;
 			DB::instance(DB_NAME)->delete('users_followed', $where_condition);
 			# Send them back
 			Router::redirect("/posts/users");

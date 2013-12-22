@@ -5,9 +5,9 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<!-- Controller Specific JS/CSS -->
 		<?php if(isset($client_files_head)) echo $client_files_head; ?>
-		<link href="css/master.css" rel="stylesheet" type="text/css">
-    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="js/jquery.minesweeper.js"></script>
+		<link href="/css/master.css" rel="stylesheet" type="text/css" media="all">
+		<script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
+    <script src="js/jquery.minesweeper.js" type="text/javascript"></script>
 	</head>
 	
 	<body>
@@ -15,47 +15,34 @@
 			<div class="headerBar">
 				<h1>Minesweeper</h1>
 			</div>
+			<?php if($user): ?>
+				<div class="welcomeBar">
+					Welcome back <?php echo $user->firstName; ?>!
+				</div>
+				<div class="topNav">
+					<a href="/users/profile/<?php echo $user->userID ?>" class="profileEdit">Profile</a> 
+					<a href="/scores/" class="profileEdit">Scores</a>
+				</div>
+			<?php endif; ?>
 			<div class="bodyWrapper">
 				<div id="gameLayer">
-					<?php if($user): ?>
-						<div id="profileHeader">
-							<h1><?php echo $user->first_name; ?> <?php echo $user->last_name; ?></h1>
-							<?php echo $user->email ?>
-							<a href="/users/profile/<?php echo $user->user_id ?>" class="profileEdit">Edit Profile</a>
-						</div>
-					<?php endif; ?>
 					<?php if(isset($content)) echo $content; ?>
 						
 					<?php if(isset($client_files_body)) echo $client_files_body; ?>
-					<?php if($user): ?>
-						<div class="leftBar">
-							<div class="controlBar">
-								<a href="/posts/myposts">My Barkings!</a>
-								<a href="/posts">My Pack's Barks!</a>
-								<a href="/posts/allposts">All Barks!</a>
-								<a href="/posts/users">Following</a>
-							</div>
-						</div>
-					<?php else: ?>
-						<div class="leftBar">
-							<div class="welcomeBar">
-								<img src="/images/welcome_header.png" width="103" height="30" alt="Welcome!">
-								Welcome to Backyard Barker. Get to know others, and keep up with what’s going on! So start barking!
-							</div>
-						</div>
-					<?php endif; ?>
 				</div>
 			</div>
 			<div class="footerBar">
-				<a href='/posts'>Home</a>
-				<!-- Menu for users who are logged in -->
-				<?php if($user): ?>
-					<a href='/users/logout'>Logout</a>
-					<!-- Menu options for users who are not logged in -->
-				<?php else: ?>
-					<a href='/users/signup'>Sign up</a>
-					<a href='/users/login'>Log in</a>
-				<?php endif; ?>
+				<div class="footerLinks">
+					<a href='/posts'>Home</a>
+					<!-- Menu for users who are logged in -->
+					<?php if($user): ?>
+						<a href='/users/logout'>Logout</a>
+						<!-- Menu options for users who are not logged in -->
+					<?php else: ?>
+						<a href='/users/signup'>Sign up</a>
+						<a href='/users/login'>Log in</a>
+					<?php endif; ?>
+				</div>
 			</div>
 		</div>
 	</body>
