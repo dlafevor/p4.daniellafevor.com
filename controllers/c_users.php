@@ -145,22 +145,44 @@ class users_controller extends base_controller {
 				$this->template->title   = "User Profile";
 
 				# Build the query
-			$q = 'SELECT 
-            users.firstName,
-            users.lastName, 
-						users.email,
-						users.userState, 
-						users.userCity, 
-						users.userBio
-        FROM users
-        WHERE users.userID = '.$this->user->userID;
-	
-			# Run the query
-			$myProfile = DB::instance(DB_NAME)->select_rows($q);
-	
-			# Pass data to the View
-			$this->template->content->userProfile = $myProfile;
-
+				$q = 'SELECT 
+							users.firstName,
+							users.lastName, 
+							users.email,
+							users.userState, 
+							users.userCity, 
+							users.userBio
+					FROM users
+					WHERE users.userID = '.$this->user->userID;
+		
+				# Run the query
+				$myProfile = DB::instance(DB_NAME)->select_rows($q);
+		
+				# Pass data to the View
+				$this->template->content->userProfile = $myProfile;
+				
+				#Build Data for Won Games
+				$qWon = 
+					'SELECT COUNT(gameID) AS gamesWon
+					FROM minesweepresults
+						INNER JOIN users ON users.userID = minesweepresults.userID
+					WHERE minesweepresults.isWon = 1 AND users.userID = '.$this->user->userID;
+				#Run the query
+				$getWonScores = DB::instance(DB_NAME)->select_rows($qWon);
+				# Pass data to the View
+				$this->template->content->gamesWon = $getWonScores;
+				
+				#Build Data for Won Games
+				$qLost = 
+					'SELECT COUNT(gameID) AS gamesLost
+					FROM minesweepresults
+						INNER JOIN users ON users.userID = minesweepresults.userID
+					WHERE minesweepresults.isWon = 0 AND users.userID = '.$this->user->userID;
+				#Run the query
+				$getLostScores = DB::instance(DB_NAME)->select_rows($qLost);
+				# Pass data to the View
+				$this->template->content->gamesLost = $getLostScores;
+				
 				# Render template
 				echo $this->template;
 			}

@@ -5,15 +5,16 @@ body { font-family: "Trebuchet MS", Arial, Helvetica, sans-serif; color: #ffffff
 body.caution { cursor: help; }
 div.appWrapper { width: 275px; border-left: #01aaf2 solid 1px; border-right: #01aaf2 solid 1px; background-color: #000000; margin: 0 auto 0 auto; }
 div.headerBar { background-color: #393939; }
-div.headerBar h1 { margin: 0 auto 0 auto; text-align: center; }
+div.headerBar h1 { margin: 0 auto 0 auto; text-align: center; padding: 2px 0px 4px 0px; }
 div.welcomeBar { text-align: center; padding: 4px 4px 4px 4px; }
 div.topNav { text-align: center; background-color: #01aaf2; border: 1px solid #000; height: 25px; }
 div.topNav a, div.topNav a:visited { padding: 4px 8px 4px 8px; color: #000; text-decoration: none; }
 div.topNav a:hover { background-color: #65c8f2; }
 div.bodyWrapper { margin: 0 25px 0 25px; }
-div.footerBar { background-color: #393939; margin-top: 25px; padding-bottom: 15px; }
+div.footerBar { background-color: #393939; margin-top: 25px; padding: 10px 0px 15px 0px; }
 div.footerBar img { margin: 5px; vertical-align: middle; }
-div.footerBar a, div.footerBar a:visited { padding: 2px; margin: 0 5px 0 5px; color: #ffffff; text-decoration: none; }
+div.footerBar a, div.footerBar a:visited { padding: 2px 6px 2px 6px; margin: 0 5px 0 5px; color: #ffffff; text-decoration: none; }
+div.footerBar a:hover { background-color: #727272;  }
 div.footerLinks { margin: auto 0 auto 0; width: 250px; text-align: center; }
 #minesweepGame form { margin: 5px; }
 #newGameForm { margin: 0 auto 0 auto; width: 110px; }
@@ -28,6 +29,8 @@ table.mineSweeper td.mine { font-weight: bold; }
 table.mineSweeper td.mined { color: #CC0000; font-weight: bold; border: 3px solid #ff0000; background-color: #000000; background-image: url(../images/explosion.png); background-repeat:no-repeat; background-position:center; }
 table.mineSweeper td.caution { color: #ffae00; font-weight: bold; background-color: #ffd200; background-position: center; background-repeat: no-repeat; border: 1px solid #ff2200; }
 ol { font-size: .85em; width: 200px; list-style-type: decimal; }
+
+article.formInstructions { border: #393939 1px solid; border-radius: 5px; padding: 4px; margin: 4px; font-size: .8em; background-color: #212121; }
 
 input.stField { border-radius: 5px; margin: 4px 0px 4px 0px; padding: 4px; background: none; color: #ffffff; border: #393939 solid 1px; }
 input.stField:active { background-color: #393939; border: #727272 solid 1px; }

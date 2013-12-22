@@ -1,0 +1,1 @@
+<?php foreach($myScores as $scoreWon): ?><?=$scroeWon['gamesWon']?><?php endforeach; ?>

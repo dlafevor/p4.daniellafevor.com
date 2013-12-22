@@ -1,5 +1,7 @@
 <div class="signupBody">
-	<br><br>
+	<article class="formInstructions">
+	Below is your profile. Please fill out any additional information you would like to share with other players.
+	</article>
 	<?php foreach($userProfile as $profile): ?>
 		<form method='post' action='/users/p_profile' class="signupBody">
 			<input type='text' name='firstName' placeholder="Your first name"  value="<?=$profile['firstName']?>" class="stField">
@@ -10,6 +12,7 @@
 			<textarea name="userBio" id="userBio" placeholder="Tell us about yourself" class="signupBody"><?=$profile['userBio']?></textarea>
 			<input type="submit" value="Edit Profile" class="stButton"> &nbsp;&nbsp;&nbsp; <input type="submit" value="Cancel" class="stButton">
 		</form>
+		<?php foreach($gamesWon as $scoreWon): ?><?=$scoreWon['gamesWon']?><?php endforeach; ?> &ndash; <?php foreach($gamesLost as $scoreLost): ?><?=$scoreLost['gamesLost']?><?php endforeach; ?>
 		<div class="userBio">
 			<strong>Name</strong>: <?=$profile['firstName']?> <?=$profile['lastName']?><br>
 			<strong>Email</strong>: <?=$profile['email']?><br>
