@@ -22,6 +22,9 @@ div.gameNewLayer { display: none; padding: 5px; margin: 0 auto 0 auto; width: 11
 div.gameNewLayer input {  width: 110px; border: 2px solid #ffffff; background-color: #000000; color: #ffffff; cursor: pointer; }
 #gameBoardLayer h2 { margin: 5px auto 0 auto; font-weight: normal; font-size: 2.2em; width: 145px; text-align: center; }
 h3.stats { margin: 4px 0px 0px 0px; color: #01aaf2; }
+ul.topTen { list-style: none; margin: 0; }
+ul.topTen li { margin: 0 0 8px -25px; }
+span.playerName { margin: 0px 0px 8px 8px; color: #01aaf2; }
 table.mineSweeper { margin-top: 5px; }
 table.mineSweeper td { margin: 3px; background-color: #01aaf2; border: 1px solid #2100e8; cursor: pointer; height: 20px; overflow: hidden; text-align: center; width: 20px; margin: 10px; padding: 0 0 0 0;  }
 table.mineSweeper td.active { background-color: #000000; border: 1px solid #4d4e53;  }
@@ -29,6 +32,7 @@ table.mineSweeper td.active:hover { border: 1px solid #ffffff; background-color:
 table.mineSweeper td.mine { font-weight: bold; }
 table.mineSweeper td.mined { color: #CC0000; font-weight: bold; border: 3px solid #ff0000; background-color: #000000; background-image: url(../images/explosion.png); background-repeat:no-repeat; background-position:center; }
 table.mineSweeper td.caution { color: #ffae00; font-weight: bold; background-color: #ffd200; background-position: center; background-repeat: no-repeat; border: 1px solid #ff2200; }
+div.helpInfo { text-align: left; }
 ol { font-size: .85em; width: 200px; list-style-type: decimal; }
 
 article.formInstructions { border: #393939 1px solid; border-radius: 5px; padding: 4px; margin: 4px; font-size: .8em; background-color: #212121; }

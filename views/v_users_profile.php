@@ -59,7 +59,6 @@
 				} else {
 					echo '0';
 				}
-				 
 			?>%<br>
 			<p>
 				<strong>Top Ten Games</strong>:<br>

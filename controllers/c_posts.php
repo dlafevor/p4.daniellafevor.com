@@ -111,28 +111,83 @@ class posts_controller extends base_controller {
 		public function allposts() {
 			# Set up the View
 			$this->template->content = View::instance('v_posts_allposts');
-			$this->template->title   = "All The Barking";
+			$this->template->title   = "MineSweeper! Top Ten";
 	
 			# Build the query
-			$q = 'SELECT 
-            posts.content,
-            posts.created,
-						users.firstName,
+			$qTopTenEasy = 
+				'SELECT 
+						minesweepresults.gameID, 
+            minesweepresults.gameTime, 
+						minesweepresults.created, 
+						users.userID, 
+            users.firstName,
             users.lastName, 
 						users.email
-        FROM posts
-				INNER JOIN users ON posts.userID = users.userID';
+        FROM minesweepresults
+					INNER JOIN users ON minesweepresults.userID = users.userID
+        WHERE 
+					minesweepresults.difficulty = 1 AND minesweepresults.isWon = 1
+				ORDER BY
+					minesweepresults.gameTime ASC
+				LIMIT 10;';
 	
 			# Run the query
-			$userallposts = DB::instance(DB_NAME)->select_rows($q);
+			$getTopTenEasy = DB::instance(DB_NAME)->select_rows($qTopTenEasy);
 	
 			# Pass data to the View
-			$this->template->content->allposts = $userallposts;
+			$this->template->content->topTenEasy = $getTopTenEasy;
+			
+			# Build the query - Med
+			$qTopTenMed = 
+				'SELECT 
+						minesweepresults.gameID, 
+            minesweepresults.gameTime, 
+						minesweepresults.created, 
+						users.userID, 
+            users.firstName,
+            users.lastName, 
+						users.email
+        FROM minesweepresults
+					INNER JOIN users ON minesweepresults.userID = users.userID
+        WHERE 
+					minesweepresults.difficulty = 2 AND minesweepresults.isWon = 1
+				ORDER BY
+					minesweepresults.gameTime ASC
+				LIMIT 10;';
+	
+			# Run the query
+			$getTopTenMed = DB::instance(DB_NAME)->select_rows($qTopTenMed);
+	
+			# Pass data to the View
+			$this->template->content->topTenMed = $getTopTenMed;
+			
+			# Build the query - Difficult
+			$qTopTenDif = 
+				'SELECT 
+						minesweepresults.gameID, 
+            minesweepresults.gameTime, 
+						minesweepresults.created, 
+						users.userID, 
+            users.firstName,
+            users.lastName, 
+						users.email
+        FROM minesweepresults
+					INNER JOIN users ON minesweepresults.userID = users.userID
+        WHERE 
+					minesweepresults.difficulty = 2 AND minesweepresults.isWon = 1
+				ORDER BY
+					minesweepresults.gameTime ASC
+				LIMIT 10;';
+	
+			# Run the query
+			$getTopTenDif = DB::instance(DB_NAME)->select_rows($qTopTenDif);
+	
+			# Pass data to the View
+			$this->template->content->topTenDif = $getTopTenDif;
 	
 			# Render the View
 			echo $this->template;
-		}
-	
+		}	
 	# End - Function for pulling back my posts
 	
 	
