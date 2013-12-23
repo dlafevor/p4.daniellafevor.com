@@ -253,12 +253,12 @@ $.fn.near = function(){
 		var selectDifficulty = $('#gameDifficulty').val();
 		
 		var timeSec = 0;
-		var counter = setInterval(timer, 1000);
 		var timeMin = 0;
-		
+		var counter = setInterval(timer, 1000);
+				
 		function timer(){
 			if (timeSec !== -1) {
-				timeSec=timeSec + 1;
+				timeSec = timeSec + 1;
 				timeMin = parseInt(timeSec/60);
 					
 				$('#timer').replaceWith('<span id="timer">' + timeMin + ':' + (timeSec%60) + '</span>');
