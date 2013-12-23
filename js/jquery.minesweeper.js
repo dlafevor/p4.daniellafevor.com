@@ -109,7 +109,14 @@ $.fn.near = function(){
 	// Load the won page if it is the end of the game and no mines have been hit
 	MineSweeper.prototype.checkEndGame = function(){
 		 if (!this.noMineCells.filter( '.active' ).size()){
-			$('#gameBoardLayer').css('display','none').load('win.html'); 
+			$('#isWon').val(1);
+			var formValues = $('#gameDataForm').serialize();
+			$.post('/posts/p_addGame', formValues, function(data) {
+				$('#timer').replaceWith('<span id="timer"></span>');
+				$('#gameBoardLayer').css('display','none').load('win.php');
+			});
+			
+			 
 		}
 	};
  
@@ -188,7 +195,12 @@ $.fn.near = function(){
 			// Check to see if the target was a mine cell.
 			if (target.is( ".mine" )){
  				// if a mine, then load the loose screen
- 				$('#gameBoardLayer').css('display','none').load('loose.html');
+ 				$('#isWon').val(0);
+				
+				var formValues = $('#gameDataForm').serialize();
+				$.post('/posts/p_addGame', formValues, function(data) {
+					$('#gameBoardLayer').css('display','none').load('loose.php');
+				});
 			} else {
 				this.showCell( target ); // show the cell
  			}
@@ -231,10 +243,27 @@ $.fn.near = function(){
 		}
 	};
 	
-	// function for loading various difficulty levels and toggling visibilty of the logo, difficulty select, and "new game" button
+	// function for loading various difficulty levels and toggling visibilty of the logo, 
+	// difficulty select, starts game timer, and "new game" button
 	function loadGameBoard() {
 		var selectDifficulty = $('#gameDifficulty').val();
+
+		var timeSec = 0;
+		var counter = setInterval(timer, 1000);
+		var timeMin = 0;
+		
+		function timer(){
+			if (timeSec !== -1) {
+				timeSec=timeSec + 1;
+				timeMin = parseInt(timeSec/60);
+					
+				$('#timer').replaceWith('<span id="timer">' + timeMin + ':' + (timeSec%60) + '</span>');
+				$('#gameTime').val(timeSec);
+			};
+		};
+		
 		$(function() {
+			$('#difficulty').val(selectDifficulty);
 			if (selectDifficulty == 2) {
 				var mineSweerper = new MineSweeper( $('table.mineSweeper'), 20, 20, 25 );
 				$('.appWrapper').css('width','500px');

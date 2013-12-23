@@ -165,23 +165,100 @@ class users_controller extends base_controller {
 				$qWon = 
 					'SELECT COUNT(gameID) AS gamesWon
 					FROM minesweepresults
-						INNER JOIN users ON users.userID = minesweepresults.userID
-					WHERE minesweepresults.isWon = 1 AND users.userID = '.$this->user->userID;
+					WHERE isWon = 1 AND difficulty = 1 AND userID = '.$this->user->userID;
 				#Run the query
 				$getWonScores = DB::instance(DB_NAME)->select_rows($qWon);
 				# Pass data to the View
 				$this->template->content->gamesWon = $getWonScores;
 				
-				#Build Data for Won Games
+				#Build Data for Won Games - Medium
+				$qWonMed = 
+					'SELECT COUNT(gameID) AS gamesWon
+					FROM minesweepresults
+					WHERE isWon = 1 AND difficulty = 2 AND userID = '.$this->user->userID;
+				#Run the query
+				$getWonScoresMed = DB::instance(DB_NAME)->select_rows($qWonMed);
+				# Pass data to the View
+				$this->template->content->gamesWonMed = $getWonScoresMed;
+				
+				#Build Data for Won Games - Difficulty
+				$qWonDif = 
+					'SELECT COUNT(gameID) AS gamesWon
+					FROM minesweepresults
+					WHERE isWon = 1 AND difficulty = 3 AND userID = '.$this->user->userID;
+				#Run the query
+				$getWonScoresDif = DB::instance(DB_NAME)->select_rows($qWonDif);
+				# Pass data to the View
+				$this->template->content->gamesWonDif = $getWonScoresDif;
+				
+				#Build Data for Lost Games
 				$qLost = 
 					'SELECT COUNT(gameID) AS gamesLost
 					FROM minesweepresults
-						INNER JOIN users ON users.userID = minesweepresults.userID
-					WHERE minesweepresults.isWon = 0 AND users.userID = '.$this->user->userID;
+					WHERE isWon = 0 AND difficulty = 1 AND userID = '.$this->user->userID;
 				#Run the query
 				$getLostScores = DB::instance(DB_NAME)->select_rows($qLost);
 				# Pass data to the View
 				$this->template->content->gamesLost = $getLostScores;
+				
+				#Build Data for Lost Games - Medium
+				$qLostMed = 
+					'SELECT COUNT(gameID) AS gamesLost
+					FROM minesweepresults
+					WHERE isWon = 0 AND difficulty = 2 AND userID = '.$this->user->userID;
+				#Run the query
+				$getLostScoresMed = DB::instance(DB_NAME)->select_rows($qLostMed);
+				# Pass data to the View
+				$this->template->content->gamesLostMed = $getLostScoresMed;
+				
+				#Build Data for Lost Games - Difficult
+				$qLostDif = 
+					'SELECT COUNT(gameID) AS gamesLost
+					FROM minesweepresults
+					WHERE isWon = 0 AND difficulty = 3 AND userID = '.$this->user->userID;
+				#Run the query
+				$getLostScoresDif = DB::instance(DB_NAME)->select_rows($qLostDif);
+				# Pass data to the View
+				$this->template->content->gamesLostDif = $getLostScoresDif;
+				
+				#Build Data for Top Ten
+				$qMyTopTen = 
+					"SELECT gameTime, created
+					FROM minesweepresults
+					WHERE isWon = 1 AND difficulty = 1 AND userID = '".$this->user->userID."' 
+					ORDER BY gameTime ASC 
+					LIMIT 10";
+					
+				#Run the query
+				$getTopTen = DB::instance(DB_NAME)->select_rows($qMyTopTen);
+				# Pass data to the View
+				$this->template->content->topTen = $getTopTen;
+				
+				#Build Data for Top Ten - Medium
+				$qMyTopTenMed = 
+					"SELECT gameTime, created
+					FROM minesweepresults
+					WHERE isWon = 1 AND difficulty = 2 AND userID = '".$this->user->userID."' 
+					ORDER BY gameTime ASC 
+					LIMIT 10";
+					
+				#Run the query
+				$getTopTenMed = DB::instance(DB_NAME)->select_rows($qMyTopTenMed);
+				# Pass data to the View
+				$this->template->content->topTenMed = $getTopTenMed;
+				
+				#Build Data for Top Ten - Difficult
+				$qMyTopTenDif = 
+					"SELECT gameTime, created
+					FROM minesweepresults
+					WHERE isWon = 1 AND difficulty = 3 AND userID = '".$this->user->userID."' 
+					ORDER BY gameTime ASC 
+					LIMIT 10";
+					
+				#Run the query
+				$getTopTenDif = DB::instance(DB_NAME)->select_rows($qMyTopTenDif);
+				# Pass data to the View
+				$this->template->content->topTenDif = $getTopTenDif;
 				
 				# Render template
 				echo $this->template;

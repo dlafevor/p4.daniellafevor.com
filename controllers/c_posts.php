@@ -9,7 +9,13 @@ class posts_controller extends base_controller {
 					Router::redirect("/users/login");
         }
     }
-
+		public function p_addGame() {
+			# Function for posting game results (associated with the user) to the DB
+			$_POST['userID']  = $this->user->userID;
+			$_POST['created']  = Time::now();
+			
+			DB::instance(DB_NAME)->insert('minesweepresults', $_POST);
+		}
     public function add() {
 
         # Setup view
@@ -18,7 +24,6 @@ class posts_controller extends base_controller {
 
         # Render template
         echo $this->template;
-
     }
 
     public function p_add() {
@@ -130,22 +135,7 @@ class posts_controller extends base_controller {
 	
 	# End - Function for pulling back my posts
 	
-	# Begin -- Functions for pulling back Won Count #
-		public function myScores() {
-			$this->template->content 	= View::instance('v_scores_mine');
-			$qWon = 
-				'SELECT COUNT(gameID) AS gamesWon
-				FROM minesweepresults
-					INNER JOIN users ON users.userID = minesweepresults.userID
-				WHERE minesweepresults.isWon = 1 minesweepresults.userID = '.$this->user->userID;
-			#Run the query
-			$getWonScores = DB::instance(DB_NAME)->select_rows($qWon);
-			# Pass data to the View
-			$this->template->content->mine = $getWonScores;
-			# Render the View
-			echo $this->template;
-		}
-	# End   -- Functions for pulling back Scores #
+	
 	
 		public function users() {
 	

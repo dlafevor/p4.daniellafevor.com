@@ -21,7 +21,15 @@
 		<!--- Will be populated dynamically. --->
 		</table>
 	</div>
+	<span id="timer"></span>
 </div>
+
+<form id="gameDataForm" action="/posts/p_addGame">
+	<input type="hidden" name="gameTime" id="gameTime">
+	<input type="hidden" name="isWon" id="isWon">
+	<input type="hidden" name="difficulty" id="difficulty">
+</form>
+
 <script>
 	$('#gameDifficulty').change(loadGameBoard);
 	$('#newGameBtn').click(function(){
