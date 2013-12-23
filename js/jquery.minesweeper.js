@@ -112,11 +112,13 @@ $.fn.near = function(){
 			$('#isWon').val(1);
 			var formValues = $('#gameDataForm').serialize();
 			$.post('/posts/p_addGame', formValues, function(data) {
+				
 				$('#timer').replaceWith('<span id="timer"></span>');
-				$('#gameBoardLayer').css('display','none').load('win.php');
+				$('#gameBoardLayer').css('display','none').load('/views/v_game_end.php #win', function(){
+					$('#gameBoardLayer').fadeIn('slow');
+					$('#newGameBtn').val('Play Again?');
+				});
 			});
-			
-			 
 		}
 	};
  
@@ -196,10 +198,12 @@ $.fn.near = function(){
 			if (target.is( ".mine" )){
  				// if a mine, then load the loose screen
  				$('#isWon').val(0);
-				
 				var formValues = $('#gameDataForm').serialize();
 				$.post('/posts/p_addGame', formValues, function(data) {
-					$('#gameBoardLayer').css('display','none').load('loose.php');
+					$('#gameBoardLayer').css('display','none').load('/views/v_game_end.php #loose', function(){
+						$('#gameBoardLayer').fadeIn('slow');
+						$('#newGameBtn').val('Try Again?');
+					});
 				});
 			} else {
 				this.showCell( target ); // show the cell
@@ -247,7 +251,7 @@ $.fn.near = function(){
 	// difficulty select, starts game timer, and "new game" button
 	function loadGameBoard() {
 		var selectDifficulty = $('#gameDifficulty').val();
-
+		
 		var timeSec = 0;
 		var counter = setInterval(timer, 1000);
 		var timeMin = 0;
@@ -280,6 +284,7 @@ $.fn.near = function(){
 				$('#gameBoardLayer').fadeIn('slow');
 			}
 			if (selectDifficulty !== '') {
+				$('#gameBoardLayer').append('<span id="timer">0:00</span>');
 				$('.minesweeperIcon').css('display','none');
 				$('.gameFormLayer').css('display','none');
 				$('.gameNewLayer').css('display','block');

@@ -20,10 +20,10 @@
 					Welcome back <?php echo $user->firstName; ?>!
 				</div>
 				<div class="topNav">
-					<a href='/posts'>Home</a>
+					<a href="/">Home</a>
 					<a href="/users/profile/<?php echo $user->userID ?>" class="profileEdit">Profile</a> 
 					<a href="/posts/allposts/" class="profileEdit">Scores</a>
-					<a href='/users/logout'>Logout</a>
+					<a href="/users/logout">Logout</a>
 				</div>
 			<?php endif; ?>
 			<div class="bodyWrapper">
@@ -49,8 +49,8 @@
 							</ol>
 						</div>
 					<?php else: ?>
-						<a href='/posts'>Home</a> <br>
-						Not a member? <a href='/users/signup'>Sign up</a>
+						<a href="/">Home</a> <br>
+						Not a member? <a href="/users/signup">Sign up</a>
 					<?php endif; ?>
 				</div>
 			</div>
